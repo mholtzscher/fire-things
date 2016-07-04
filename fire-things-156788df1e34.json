@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "fire-things",
+  "private_key_id": "156788df1e344c2ef19bc1dcbb1a0143439ed84f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCdpHOwdgFtyk9/\n0xSU/YYT24xPdwwvmAOGUIFglrUa15T0xqXjriL3KBXrxfJSKlDC62Ygi38WuG2G\nQa4K9sBhU9vC8IdhbGffGalZiYqjeHLfGh/m89vsKB+KI2YpR2pZQ4/QDvEjKJBT\nfMX9MzYFmUdUYv9XADlenq9L898z/iq9ORljlSnhnPfXmlKYcaVVrN78vN15AkvI\n7n2tAO+dX5B9Tbc19v/Kdcue6OQ8lMmS3+WIX73IVE5YUSi4uo7Xgq7JC9QRd5Zp\nUm8Wgs2zxFMuNetgmlXK55EAnO5/mYLwYoAc0NupdH2IqZCkh0qyoBaLZObHEanO\n6aFox2sbAgMBAAECggEAP+qJraZq9eTtTtp6od4ZGrwNq7qNCk8MPs0tZ8gzLery\nzjwszp+wNZ3fJXVgxse5bw6and9xa/jjD2hZ9MAPSGcD14pGmc2mX+K7sz39JEKV\n8Lda7/030gyCnTO1HE+EYyTtjmJAiwzLV85jSEIXSTXYofJxrQi+OgsE8Dq06RMl\no/1ODB3s3nQsY+tJtfb233mPp3Kh0l5HwCD1Zx9+XEwhfZ4R0nvE9a8Gquh8Ap/V\nuDdnbhIxhR6GKsjy8iPIabVRPVfQA7dvoEIZ6FHKbU0RgDHtKYefQ3wS7lIgXuZY\n1nQdnFnhveStdtQkaBLlddBOKfinD1PAipqMrcaEwQKBgQDQnjjAIh59jVe9PhwL\nUz+2i69YirVtZZ/MxmpVfuDSA3YeUeB/X3NO7cSadkt0TpYx77R2D2mKRwwG4QzF\nXSCnVj1DJown+9bmI3UqExkmRL0Lx6WSW4rg21636VanNNNXHKL3RSzDBQl4n5Ud\nZiSS+sQu4sFA6SAqRiQRzs8TCQKBgQDBclP+EF4xWsXqGGXoTbSGo5p+dWX000wM\nG8BCdiRhAQ0JaOWmqhrMjljS4QWS99yFwXzAYrXZQiib2VAzxg1WA5/gYCqvevI9\nILybqMbs2OTWqxZ7NQf5FkU7Lru2dfx42sCwpXiRazTD+w+j878dN6FKaBn8CRPV\n8xqAwvsiAwKBgQCFcK9cNnbKWF6G7fOCSv22BiNiv1bNYvOUSFY72ax0qUIkorq2\nvpdDJVNcec5J1vq7dlg4LCOWD1viCpHgrHD2mHMXQNDlwnDzRDrtbsnncJB7uHhv\n5Z4vtiIgAWEsEt4cGnUjNVwsYkxsm6cF5w/98+kJFIIIwxWP9M2dlmteAQKBgFML\nJ297y1PYqfnSu3y8TvE1ro73CuvNAWp5R1HAseFKuDP/6gZgI90Ihq0QmHn9GZf5\n9foI5hP8SL6OzdVMAlGYgLurzOdEGlWPhig0jiEDA0n8bEw7+c4+dz3u0/qCL/4Z\nunqarmWO5jnzv0Uc0EBUr1Ln2a/OnctM72WzTmfNAoGAI7kyXFwGPRNiCMVBNgd6\nbsXVTW6f/OVzho4J5DhTeGM+y/OgvxDNMjeSC0TgawC8UXb2/OkWKmF0TTzJdnkF\n5ejR0R1j7Mo6FP18MX6MyA44/GiTjiY74wWl7QMKgDumrBUJT1lsS6xNWDNeNDD2\nmg+J9Mku3aTLvXbFoGprGjY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "fire-things-server@fire-things.iam.gserviceaccount.com",
+  "client_id": "117435031436012777633",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fire-things-server%40fire-things.iam.gserviceaccount.com"
+}
