@@ -7,6 +7,10 @@
         "24d0d732-a275-479c-b622-b36640154f4d": {
             "name": "Kitchen Door",
             "contact": true
+        },
+        "711d7aeb-00fa-49b4-842a-0c428ae8f07b": {
+            "name": "Garage Entry Door",
+            "contact": true
         }
     }
 }
