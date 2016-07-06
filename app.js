@@ -20,14 +20,14 @@ app.get('/', function(req, res) {
 });
 
 app.post('/events', jsonParser, function(req, res) {
+    // Push to General Event list
+    eventsRef.push().set(req.body);
+
     // grab raw data and clean it up
     var rawData = req.body;
     var deviceId = rawData.deviceId;
     var data = cleanData(rawData);
-
-    // Push to General Event list
-    eventsRef.push().set(rawData);
-
+    
     // Update individual Device Status
     var deviceRef = db.ref("devices");
     deviceRef.child(deviceId).set(data);
