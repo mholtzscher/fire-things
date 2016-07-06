@@ -23,7 +23,7 @@ app.post('/events', jsonParser, function(req, res) {
     // grab raw data and clean it up
     var rawData = req.body;
     var deviceId = rawData.deviceId;
-    var data = cleanData(raw);
+    var data = cleanData(rawData);
 
     // Push to General Event list
     eventsRef.push().set(rawData);
