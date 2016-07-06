@@ -11,6 +11,10 @@
         "711d7aeb-00fa-49b4-842a-0c428ae8f07b": {
             "name": "Garage Entry Door",
             "contact": true
+        },
+        "c4e4fce4-89a6-485b-82d4-b996458a5794": {
+            "name": "Backyard Door",
+            "contact": true
         }
     }
 }

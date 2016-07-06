@@ -47,22 +47,28 @@ function processEvent(event) {
 }
 
 function processContactSensorEvent(event) {
+    var deviceRef = db.ref("devices");
+    
+    deviceRef.child(event.deviceId).update({
+        'device': event.device
+    });
+
+    deviceRef.child(event.deviceId).update({
+        'updateTime': event.isoDate
+    });
+
     switch (event.name) {
         case 'temperature':
-            // Update individual Device Status
-            var deviceRef = db.ref("devices");
             deviceRef.child(event.deviceId).update({
                 'temperature': event.value
             });
             break;
         case ('contact'):
-            var deviceRef = db.ref("devices");
             deviceRef.child(event.deviceId).update({
                 'contact': event.value
             });
             break;
         case ('battery'):
-            var deviceRef = db.ref("devices");
             deviceRef.child(event.deviceId).update({
                 'battery': event.value
             });
