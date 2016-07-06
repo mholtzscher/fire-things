@@ -20,10 +20,40 @@ app.get('/', function(req, res) {
 });
 
 app.post('/events', jsonParser, function(req, res) {
-    eventsRef.push().set(req.body);
+    // grab raw data and clean it up
+    var rawData = req.body;
+    var deviceId = rawData.deviceId;
+    var data = cleanData(raw);
+
+    // Push to General Event list
+    eventsRef.push().set(rawData);
+
+    // Update individual Device Status
+    var deviceRef = db.ref("devices");
+    deviceRef.child(deviceId).set(data);
     res.send('OK');
 });
 
 app.listen(process.env.PORT || 3000, function() {
     console.log('Example app listening on port 3000!');
 });
+
+function cleanData(mData) {
+    delete mData['isVirtualHub'];
+    delete mData['data'];
+    delete mData['archivable'];
+    delete mData['translatable'];
+    delete mData['viewed'];
+    delete mData['isStateChange'];
+    delete mData['rawDescription'];
+    delete mData['displayed'];
+    delete mData['eventSource'];
+    delete mData['hubId'];
+    delete mData['groupId'];
+    delete mData['deviceTypeId'];
+    delete mData['locationId'];
+    delete mData['name'];
+    delete mData['deviceId'];
+    delete mData['date'];
+    return mData;
+}
