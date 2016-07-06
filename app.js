@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var firebase = require("firebase");
+var config = require('config');
 
 firebase.initializeApp({
     serviceAccount: "fire-things-156788df1e34.json",
@@ -23,37 +24,51 @@ app.post('/events', jsonParser, function(req, res) {
     // Push to General Event list
     eventsRef.push().set(req.body);
 
-    // grab raw data and clean it up
-    var rawData = req.body;
-    var deviceId = rawData.deviceId;
-    var data = cleanData(rawData);
-    
-    // Update individual Device Status
-    var deviceRef = db.ref("devices");
-    deviceRef.child(deviceId).set(data);
+    processEvent(req.body);
     res.send('OK');
 });
 
 app.listen(process.env.PORT || 3000, function() {
-    console.log('Example app listening on port 3000!');
+    console.log('Fire-Things processing service is awake!');
 });
 
-function cleanData(mData) {
-    delete mData['isVirtualHub'];
-    delete mData['data'];
-    delete mData['archivable'];
-    delete mData['translatable'];
-    delete mData['viewed'];
-    delete mData['isStateChange'];
-    delete mData['rawDescription'];
-    delete mData['displayed'];
-    delete mData['eventSource'];
-    delete mData['hubId'];
-    delete mData['groupId'];
-    delete mData['deviceTypeId'];
-    delete mData['locationId'];
-    delete mData['name'];
-    delete mData['deviceId'];
-    delete mData['date'];
-    return mData;
+function processEvent(event) {
+    var deviceId = event.deviceId;
+
+    if (config.has('Devices.' + deviceId)) {
+        var deviceConfig = config.get('Devices.' + deviceId);
+
+        if (deviceConfig.has('contact')) {
+            processContactSensorEvent(event);
+        }
+    } else {
+        console.log('No config found for device[' + deviceId + ']. Ignoring Device');
+    }
+}
+
+function processContactSensorEvent(event) {
+    switch (event.name) {
+        case 'temperature':
+            // Update individual Device Status
+            var deviceRef = db.ref("devices");
+            deviceRef.child(event.deviceId).update({
+                'temperature': event.value
+            });
+            break;
+        case ('contact'):
+            var deviceRef = db.ref("devices");
+            deviceRef.child(event.deviceId).update({
+                'contact': event.value
+            });
+            break;
+        case ('battery'):
+            var deviceRef = db.ref("devices");
+            deviceRef.child(event.deviceId).update({
+                'battery': event.value
+            });
+            break;
+
+        default:
+
+    }
 }
