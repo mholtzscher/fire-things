@@ -82,6 +82,11 @@ function processDeviceEvent() {
                 'humidity': event.value
             });
             break;
+        case ('water'):
+            deviceRef.child(event.deviceId).update({
+                'water': event.value
+            });
+            break;
         default:
             console.log('Invalid device event:v' + event.name + ' and event value: ' + event.value);
     }
