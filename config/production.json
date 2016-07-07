@@ -15,6 +15,18 @@
         "c4e4fce4-89a6-485b-82d4-b996458a5794": {
             "name": "Backyard Door",
             "contact": true
+        },
+        "1239a85c-f2fc-453c-97a0-c6a1c98ee0a4": {
+          "name": "Basement Rear Window",
+          "contact": true
+        },
+        "43e88c40-0fa7-42a7-8b4d-f97d78e3765c": {
+          "name": "Basement Front Left Window",
+          "contact": true
+        },
+        "3fe64b8a-61a7-43ad-8578-b1c27c0a2e52": {
+          "name": "Basement Front Right Window",
+          "contact": true
         }
     }
 }
