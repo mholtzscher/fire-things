@@ -17,16 +17,20 @@
             "contact": true
         },
         "1239a85c-f2fc-453c-97a0-c6a1c98ee0a4": {
-          "name": "Basement Rear Window",
-          "contact": true
+            "name": "Basement Rear Window",
+            "contact": true
         },
         "43e88c40-0fa7-42a7-8b4d-f97d78e3765c": {
-          "name": "Basement Front Left Window",
-          "contact": true
+            "name": "Basement Front Left Window",
+            "contact": true
         },
         "3fe64b8a-61a7-43ad-8578-b1c27c0a2e52": {
-          "name": "Basement Front Right Window",
-          "contact": true
+            "name": "Basement Front Right Window",
+            "contact": true
+        },
+        "1c491669-bd36-4709-9d03-c91f697bde83": {
+            "name": "Deep Freezer Sensor",
+            "temp": true
         }
     }
 }
