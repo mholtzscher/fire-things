@@ -39,22 +39,24 @@ function processEvent(event) {
         var deviceConfig = config.get('Devices.' + deviceId);
 
         if (deviceConfig.has('contact')) {
-            processContactSensorEvent(event);
+            processDeviceEvent(event);
         } else if (deviceConfig.has('temp')) {
-            processTempSensorEvent(event);
+            processDeviceEvent(event);
         }
     } else {
         console.log('No config found for device[' + deviceId + ']. Ignoring Device');
     }
 }
 
-function processContactSensorEvent(event) {
+function processDeviceEvent() {
     var deviceRef = db.ref("devices");
 
+    // Reprocess device name in case it got changed
     deviceRef.child(event.deviceId).update({
         'device': event.device
     });
 
+    // update the update time so that dashboard knows when last piece of data was received
     deviceRef.child(event.deviceId).update({
         'updateTime': event.isoDate
     });
@@ -75,37 +77,12 @@ function processContactSensorEvent(event) {
                 'battery': event.value
             });
             break;
-        default:
-    }
-}
-
-function processTempSensorEvent(event) {
-    var deviceRef = db.ref("devices");
-
-    deviceRef.child(event.deviceId).update({
-        'device': event.device
-    });
-
-    deviceRef.child(event.deviceId).update({
-        'updateTime': event.isoDate
-    });
-
-    switch (event.name) {
-        case 'temperature':
-            deviceRef.child(event.deviceId).update({
-                'temperature': event.value
-            });
-            break;
         case ('humidity'):
             deviceRef.child(event.deviceId).update({
                 'humidity': event.value
             });
             break;
-        case ('battery'):
-            deviceRef.child(event.deviceId).update({
-                'battery': event.value
-            });
-            break;
         default:
+            console.log('Invalid device event:v' + event.name + ' and event value: ' + event.value);
     }
 }

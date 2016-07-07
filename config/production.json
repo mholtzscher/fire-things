@@ -31,6 +31,10 @@
         "1c491669-bd36-4709-9d03-c91f697bde83": {
             "name": "Deep Freezer Sensor",
             "temp": true
+        },
+        "e078dedc-9fd8-4a68-9748-f368da3083db": {
+          "name": "Basement Water Sensor",
+          "water": true
         }
     }
 }
