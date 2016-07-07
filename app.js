@@ -48,7 +48,7 @@ function processEvent(event) {
     }
 }
 
-function processDeviceEvent() {
+function processDeviceEvent(event) {
     var deviceRef = db.ref("devices");
 
     // Reprocess device name in case it got changed
@@ -90,4 +90,17 @@ function processDeviceEvent() {
         default:
             console.log('Invalid device event:v' + event.name + ' and event value: ' + event.value);
     }
+}
+
+function updateDeviceStatusInFirebase(deviceId, key, value) {
+    var deviceRef = db.ref("devices");
+
+    deviceRef.child(deviceId).update({
+        key: value
+    }, function(error) {
+        if (error) {
+            console.log("Data could not be saved." + error);
+        }
+    });
+
 }
