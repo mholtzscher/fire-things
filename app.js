@@ -42,6 +42,8 @@ function processEvent(event) {
             processDeviceEvent(event);
         } else if (deviceConfig.has('temp')) {
             processDeviceEvent(event);
+        } else if (deviceConfig.has('water')) {
+            processDeviceEvent(event);
         }
     } else {
         console.log('No config found for device[' + deviceId + ']. Ignoring Device');
