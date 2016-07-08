@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var firebase = require("firebase");
 var config = require('config');
+var events = require('./events.js');
 
 firebase.initializeApp({
     serviceAccount: "fire-things-156788df1e34.json",
@@ -23,6 +24,8 @@ app.get('/', function(req, res) {
 app.post('/events', jsonParser, function(req, res) {
     // Push to General Event list
     eventsRef.push().set(req.body);
+
+    events.insert(req.body, _handleApiResponse(res));
 
     processEvent(req.body);
     res.send('OK');
@@ -105,4 +108,18 @@ function updateDeviceStatusInFirebase(deviceId, key, value) {
         }
     });
 
+}
+
+function _handleApiResponse(res, successStatus) {
+  return function(err, payload) {
+    if (err) {
+      console.error(err);
+      // res.status(err.code).send(err.message);
+      return;
+    }
+    if (successStatus) {
+      // res.status(successStatus);
+    }
+    // res.json(payload);
+  };
 }
