@@ -1,6 +1,7 @@
 'use strict';
 
-var projectId = process.env.GCLOUD_PROJECT || process.env.DATASET_ID;
+// var projectId = process.env.GCLOUD_PROJECT || process.env.DATASET_ID;
+var projectId = 'fire-things';
 
 if (!projectId) {
   var MISSING_ID = [
@@ -11,7 +12,8 @@ if (!projectId) {
 }
 
 var gcloud = require('gcloud')({
-  projectId: projectId
+  projectId: projectId,
+  credentials: require('./fire-things-156788df1e34.json')
 });
 
 var datastore = gcloud.datastore();
