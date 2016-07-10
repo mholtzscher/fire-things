@@ -77,7 +77,7 @@ function queryEvent(deviceId, startTime, endTime, callback) {
 module.exports = {
 
     insert: function(data, callback) {
-        var key = datastore.key('EventDev');
+        var key = datastore.key('Event');
 
         saveEvent(key, data, callback);
     },
