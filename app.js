@@ -47,9 +47,6 @@ app.get('/test', function(req, res) {
 });
 
 app.post('/events', jsonParser, function(req, res) {
-    // Push to General Event list
-    // eventsRef.push().set(req.body);
-
     events.insert(req.body, _handleApiResponse(res));
 
     processEvent(req.body);

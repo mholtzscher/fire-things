@@ -19,7 +19,27 @@ var gcloud = require('gcloud')({
 var datastore = gcloud.datastore();
 
 function saveEvent(key, data, callback) {
+    // fix event id
+    var eventId = data.id;
     delete data.id;
+    data['eventId'] = eventId;
+
+    // convert dates
+    var date = data['date'];
+    data['date'] = new Date(date);
+
+    var isoDate = data['isoDate'];
+    data['isoDate'] = new Date(isoDate);
+
+    // fix booleans
+    var isDigital = data['isDigital'];
+    data['isDigital'] = Boolean(isDigital);
+
+    var isPhysical = data['isPhysical'];
+    data['isDigital'] = Boolean(isDigital);
+
+    var isStateChange = data['isStateChange'];
+    data['isStateChange'] = Boolean(isStateChange);
 
     datastore.save({
         key: key,
@@ -36,30 +56,28 @@ function saveEvent(key, data, callback) {
 }
 
 function queryEvent(deviceId, startTime, endTime, callback) {
-  var query = datastore.createQuery('Event')
-  .filter('deviceId', '=', deviceId)
-  .filter('date', '=', 'Wed Jul 06 20:01:05 UTC 2016');
-  // .filter('date', '<=', new Date(endTime));
-  // .order('date', {
-  //   ascending: true
-  // });
+    var query = datastore.createQuery('Event')
+        .filter('deviceId', '=', deviceId)
+        .filter('date', '=', 'Wed Jul 06 20:01:05 UTC 2016');
+    // .filter('date', '<=', new Date(endTime));
+    // .order('date', {
+    //   ascending: true
+    // });
 
-  datastore.runQuery(query, function (err, events) {
-  if (!err) {
-    // Task entities found.
-    console.log(events);
-  }else{
-    console.log(err);
-  }
-});
+    datastore.runQuery(query, function(err, events) {
+        if (!err) {
+            // Task entities found.
+            console.log(events);
+        } else {
+            console.log(err);
+        }
+    });
 }
 
 module.exports = {
 
     insert: function(data, callback) {
-        var key = datastore.key('Event');
-
-        console.log(data);
+        var key = datastore.key('EventDev');
 
         saveEvent(key, data, callback);
     },
