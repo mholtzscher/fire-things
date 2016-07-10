@@ -59,6 +59,8 @@ module.exports = {
     insert: function(data, callback) {
         var key = datastore.key('Event');
 
+        console.log(data);
+
         saveEvent(key, data, callback);
     },
 
