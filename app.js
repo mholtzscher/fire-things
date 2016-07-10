@@ -17,8 +17,33 @@ var app = express();
 // create application/json parser
 var jsonParser = bodyParser.json()
 
+// Add headers
+app.use(function(req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
+
 app.get('/', function(req, res) {
     res.send('Hello World!');
+});
+
+app.get('/test', function(req, res) {
+    events.query('d0c2a576-73c4-42af-a7f1-00ec9569c797','Mon Jul 04 01:24:59 UTC 2016','Sun Jul 10 00:02:53 UTC 2016', _handleApiResponse(res));
+    res.send('OK');
 });
 
 app.post('/events', jsonParser, function(req, res) {
@@ -111,15 +136,15 @@ function updateDeviceStatusInFirebase(deviceId, key, value) {
 }
 
 function _handleApiResponse(res, successStatus) {
-  return function(err, payload) {
-    if (err) {
-      console.error(err);
-      // res.status(err.code).send(err.message);
-      return;
-    }
-    if (successStatus) {
-      // res.status(successStatus);
-    }
-    // res.json(payload);
-  };
+    return function(err, payload) {
+        if (err) {
+            console.error(err);
+            // res.status(err.code).send(err.message);
+            return;
+        }
+        if (successStatus) {
+            // res.status(successStatus);
+        }
+        // res.json(payload);
+    };
 }

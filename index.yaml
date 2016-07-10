@@ -1,0 +1,8 @@
+indexes:
+
+# - kind: Task
+#   ancestor: no
+#   properties:
+#   - name: deviceId
+#   - name: date
+#     direction: desc

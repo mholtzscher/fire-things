@@ -4,42 +4,65 @@
 var projectId = 'fire-things';
 
 if (!projectId) {
-  var MISSING_ID = [
-    'Cannot find your project ID. Please set an environment variable named ',
-    '"DATASET_ID", holding the ID of your project.'
-  ].join('');
-  throw new Error(MISSING_ID);
+    var MISSING_ID = [
+        'Cannot find your project ID. Please set an environment variable named ',
+        '"DATASET_ID", holding the ID of your project.'
+    ].join('');
+    throw new Error(MISSING_ID);
 }
 
 var gcloud = require('gcloud')({
-  projectId: projectId,
-  credentials: require('./fire-things-156788df1e34.json')
+    projectId: projectId,
+    credentials: require('./fire-things-156788df1e34.json')
 });
 
 var datastore = gcloud.datastore();
 
 function saveEvent(key, data, callback) {
-  delete data.id;
+    delete data.id;
 
-  datastore.save({
-    key: key,
-    data: data
-  }, function(err) {
-    if (err) {
-      callback(err);
-      return;
-    }
+    datastore.save({
+        key: key,
+        data: data
+    }, function(err) {
+        if (err) {
+            callback(err);
+            return;
+        }
 
-    data.id = key.id;
-    callback(null, data);
-  });
+        data.id = key.id;
+        callback(null, data);
+    });
+}
+
+function queryEvent(deviceId, startTime, endTime, callback) {
+  var query = datastore.createQuery('Event')
+  .filter('deviceId', '=', deviceId)
+  .filter('date', '=', 'Wed Jul 06 20:01:05 UTC 2016');
+  // .filter('date', '<=', new Date(endTime));
+  // .order('date', {
+  //   ascending: true
+  // });
+
+  datastore.runQuery(query, function (err, events) {
+  if (!err) {
+    // Task entities found.
+    console.log(events);
+  }else{
+    console.log(err);
+  }
+});
 }
 
 module.exports = {
 
-  insert: function(data, callback) {
-    var key = datastore.key('Event');
+    insert: function(data, callback) {
+        var key = datastore.key('Event');
 
-    saveEvent(key, data, callback);
-  }
+        saveEvent(key, data, callback);
+    },
+
+    query: function(deviceId, startTime, endTime, callback) {
+        queryEvent(deviceId, startTime, endTime, callback);
+    }
 };
