@@ -50,7 +50,9 @@ app.post('/deviceTempHistory', jsonParser, function(req, res) {
 });
 
 app.get('/getFreezerTempHistory', function(req, res) {
-    events.queryDeviceTempHistory("1c491669-bd36-4709-9d03-c91f697bde83", "2016-07-9 (13:38:42.000) CDT", _handleApiResponse(res));
+    var today = new Date();
+    var startTime = new Date(today.getTime() - 604800000);
+    events.queryDeviceTempHistory("1c491669-bd36-4709-9d03-c91f697bde83", today, _handleApiResponse(res));
 });
 
 app.post('/events', jsonParser, function(req, res) {
