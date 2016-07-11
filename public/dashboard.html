@@ -1,0 +1,14 @@
+<link rel="import" href="bower_components/google-chart/google-chart.html">
+<link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+<dom-module id="fire-things-app">
+    <template>
+        <paper-toolbar>
+          <div class="title">Fire Things</div>
+        </paper-toolbar>
+        <google-chart type='line' data="http://localhost:3000/getFreezerTempHistory"></google-chart>
+
+    </template>
+    <script>
+        Polymer({is: 'fire-things-app'});
+    </script>
+</dom-module>
