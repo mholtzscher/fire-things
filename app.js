@@ -49,6 +49,10 @@ app.post('/deviceTempHistory', jsonParser, function(req, res) {
     events.queryDeviceTempHistory(req.body.deviceId, req.body.startTime, _handleApiResponse(res));
 });
 
+app.get('/getFreezerTempHistory', function(req, res) {
+    events.queryDeviceTempHistory("1c491669-bd36-4709-9d03-c91f697bde83", "2016-07-9 (13:38:42.000) CDT", _handleApiResponse(res));
+});
+
 app.post('/events', jsonParser, function(req, res) {
     events.insert(req.body, _handleApiResponse(res));
 
