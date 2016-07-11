@@ -21,7 +21,7 @@ var jsonParser = bodyParser.json()
 app.use(function(req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+    res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8887');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -41,9 +41,12 @@ app.get('/', function(req, res) {
     res.send('Hello World!');
 });
 
-app.get('/test', function(req, res) {
-    events.query('d0c2a576-73c4-42af-a7f1-00ec9569c797','Mon Jul 04 01:24:59 UTC 2016','Sun Jul 10 00:02:53 UTC 2016', _handleApiResponse(res));
-    res.send('OK');
+app.post('/contactHistory', jsonParser, function(req, res) {
+    events.queryContactHistory(req.body.deviceId, req.body.startTime, _handleApiResponse(res));
+});
+
+app.post('/deviceTempHistory', jsonParser, function(req, res) {
+    events.queryDeviceTempHistory(req.body.deviceId, req.body.startTime, _handleApiResponse(res));
 });
 
 app.post('/events', jsonParser, function(req, res) {
@@ -142,6 +145,6 @@ function _handleApiResponse(res, successStatus) {
         if (successStatus) {
             // res.status(successStatus);
         }
-        // res.json(payload);
+        res.json(payload);
     };
 }

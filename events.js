@@ -55,19 +55,68 @@ function saveEvent(key, data, callback) {
     });
 }
 
-function queryEvent(deviceId, startTime, endTime, callback) {
+function queryContactHistory(deviceId, startTime, callback) {
+    var date = new Date('2016-07-9 (13:38:42.000) CDT');
     var query = datastore.createQuery('Event')
         .filter('deviceId', '=', deviceId)
-        .filter('date', '=', 'Wed Jul 06 20:01:05 UTC 2016');
-    // .filter('date', '<=', new Date(endTime));
-    // .order('date', {
-    //   ascending: true
-    // });
+        .filter('name', '=', "contact")
+        .filter('date', '>=', date)
+        .order('date', {
+            ascending: true
+        });
 
     datastore.runQuery(query, function(err, events) {
         if (!err) {
-            // Task entities found.
-            console.log(events);
+            callback(null, events);
+        } else {
+            console.log(err);
+        }
+    });
+}
+
+function queryDeviceTempHistory(deviceId, startTime, callback) {
+    var date = new Date('2016-07-9 (13:38:42.000) CDT');
+    var query = datastore.createQuery('Event')
+        .filter('deviceId', '=', deviceId)
+        .filter('name', '=', "temperature")
+        .filter('date', '>=', date);
+
+    datastore.runQuery(query, function(err, events) {
+        if (!err) {
+            var data = {};
+            data['cols'] = [];
+            data['cols'].push({
+                "id": "",
+                "label": "Date",
+                "pattern": "",
+                "type": "datetime"
+            });
+            data['cols'].push({
+                "id": "",
+                "label": "Temperature",
+                "pattern": "",
+                "type": "number"
+            });
+
+            data['rows'] = [];
+
+            for (var i = 0; i < events.length; i++) {
+                var date = new Date(events[i]['data'].date);
+                var dateRow = {
+                    "v": "Date(" + date.getTime() + ")",
+                    "f": null
+                };
+                var tempRow = {
+                    "v": events[i]['data'].value,
+                    "f": null
+                };
+                var fullRow = {};
+                fullRow.c = [];
+                fullRow.c.push(dateRow);
+                fullRow.c.push(tempRow);
+                data['rows'].push(fullRow);
+            }
+            callback(null, data);
         } else {
             console.log(err);
         }
@@ -82,7 +131,11 @@ module.exports = {
         saveEvent(key, data, callback);
     },
 
-    query: function(deviceId, startTime, endTime, callback) {
-        queryEvent(deviceId, startTime, endTime, callback);
+    queryContactHistory: function(deviceId, startTime, callback) {
+        queryContactHistory(deviceId, startTime, callback);
+    },
+
+    queryDeviceTempHistory: function(deviceId, startTime, callback) {
+        queryDeviceTempHistory(deviceId, startTime, callback);
     }
 };

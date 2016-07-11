@@ -1,8 +1,9 @@
 indexes:
 
-# - kind: Task
-#   ancestor: no
-#   properties:
-#   - name: deviceId
-#   - name: date
-#     direction: desc
+- kind: Event
+  ancestor: no
+  properties:
+  - name: deviceId
+  - name: name
+  - name: date
+    direction: asc
