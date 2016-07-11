@@ -2,10 +2,16 @@
 <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
 <dom-module id="fire-things-app">
     <template>
+        <style>
+            google-chart {
+                height: 300px;
+                width: 50em;
+            }
+        </style>
         <paper-toolbar>
-          <div class="title">Fire Things</div>
+            <div class="title">Fire Things</div>
         </paper-toolbar>
-        <google-chart type='line' data="http://localhost:3000/getFreezerTempHistory"></google-chart>
+        <google-chart type='line' data="https://fire-things.herokuapp.com/getFreezerTempHistory" options='{"title": "Freezer Temperature", "legend": "none"}'></google-chart>
 
     </template>
     <script>
