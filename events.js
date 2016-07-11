@@ -47,12 +47,10 @@ function saveEvent(key, data, callback) {
     }, function(err) {
         if (err) {
             console.log(err);
-            callback(err, null);
             return;
         }
 
         data.id = key.id;
-        callback(null, data);
     });
 }
 
@@ -126,10 +124,10 @@ function queryDeviceTempHistory(deviceId, startTime, callback) {
 
 module.exports = {
 
-    insert: function(data, callback) {
+    insert: function(data) {
         var key = datastore.key('Event');
 
-        saveEvent(key, data, callback);
+        saveEvent(key, data);
     },
 
     queryContactHistory: function(deviceId, startTime, callback) {

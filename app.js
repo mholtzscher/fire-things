@@ -62,7 +62,7 @@ app.get('/getFrontDoorTempHistory', function(req, res) {
 });
 
 app.post('/events', jsonParser, function(req, res) {
-    events.insert(req.body, _handleApiResponse(res));
+    events.insert(req.body);
 
     processEvent(req.body);
     res.send('OK');
