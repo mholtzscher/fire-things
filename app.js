@@ -52,7 +52,13 @@ app.post('/deviceTempHistory', jsonParser, function(req, res) {
 app.get('/getFreezerTempHistory', function(req, res) {
     var today = new Date();
     var startTime = new Date(today.getTime() - 604800000);
-    events.queryDeviceTempHistory("1c491669-bd36-4709-9d03-c91f697bde83", today, _handleApiResponse(res));
+    events.queryDeviceTempHistory("1c491669-bd36-4709-9d03-c91f697bde83", startTime, _handleApiResponse(res));
+});
+
+app.get('/getFrontDoorTempHistory', function(req, res) {
+    var today = new Date();
+    var startTime = new Date(today.getTime() - 604800000);
+    events.queryDeviceTempHistory("d0c2a576-73c4-42af-a7f1-00ec9569c797", startTime, _handleApiResponse(res));
 });
 
 app.post('/events', jsonParser, function(req, res) {
