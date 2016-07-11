@@ -46,7 +46,8 @@ function saveEvent(key, data, callback) {
         data: data
     }, function(err) {
         if (err) {
-            callback(err);
+            console.log(err);
+            callback(err, null);
             return;
         }
 
