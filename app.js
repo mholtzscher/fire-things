@@ -4,8 +4,15 @@ var firebase = require("firebase");
 var config = require('config');
 var events = require('./events.js');
 var rollbar = require("rollbar");
+var Keen = require('keen-js');
+var responseTime = require("response-time");
 
 rollbar.init("e7c60f92667b4b6f8d2c4e918503f13c");
+
+var keenClient = new Keen({
+    projectId: "5784155733e4061ee9f46b16",
+    writeKey: "e10301fd9979c8d736d57e426e63101efd7d57a9caee5877f8a3cadb13fac5291d9bb643439dfa6e77cca3dff187211d88da686a8eb5febebf78b851cf6bf70033d9d717215dc04e17807abd328be149c54d10753fa6bec59bb0839292429150"
+});
 
 firebase.initializeApp({
     serviceAccount: "fire-things-156788df1e34.json",
@@ -39,6 +46,20 @@ app.use(function(req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+
+app.use(responseTime(function (req, res, time) {
+  var stat = (req.url).toLowerCase()
+    .replace(/[:\.]/g, '')
+    .replace(/\//g, '_');
+    var apiEvent = {
+      url: stat,
+      time: time,
+      keen: {
+        timestamp: new Date().toISOString()
+      }
+    };
+    keenClient.addEvent("api_transaction", apiEvent);
+}))
 
 // Use the rollbar error handler to send exceptions to your rollbar account
 app.use(rollbar.errorHandler('e7c60f92667b4b6f8d2c4e918503f13c'));
