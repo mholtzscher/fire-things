@@ -16,6 +16,9 @@ var gcloud = require('gcloud')({
 
 var datastore = gcloud.datastore();
 
+var rollbar = require("rollbar");
+rollbar.init("e7c60f92667b4b6f8d2c4e918503f13c");
+
 function saveEvent(key, data, callback) {
     // fix event id
     var eventId = data.id;
@@ -44,11 +47,9 @@ function saveEvent(key, data, callback) {
         data: data
     }, function(err) {
         if (err) {
-            console.log(err);
+            rollbar.handleError(err);
             return;
         }
-
-        data.id = key.id;
     });
 }
 
@@ -62,11 +63,7 @@ function queryContactHistory(deviceId, startTime, callback) {
         });
 
     datastore.runQuery(query, function(err, events) {
-        if (!err) {
-            callback(null, events);
-        } else {
-            console.log(err);
-        }
+        callback(err, events);
     });
 }
 
@@ -113,7 +110,7 @@ function queryDeviceTempHistory(deviceId, startTime, callback) {
             }
             callback(null, data);
         } else {
-            console.log(err);
+            callback(err, null);
         }
     });
 }

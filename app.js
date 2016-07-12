@@ -3,6 +3,9 @@ var bodyParser = require('body-parser');
 var firebase = require("firebase");
 var config = require('config');
 var events = require('./events.js');
+var rollbar = require("rollbar");
+
+rollbar.init("e7c60f92667b4b6f8d2c4e918503f13c");
 
 firebase.initializeApp({
     serviceAccount: "fire-things-156788df1e34.json",
@@ -36,6 +39,9 @@ app.use(function(req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+
+// Use the rollbar error handler to send exceptions to your rollbar account
+app.use(rollbar.errorHandler('e7c60f92667b4b6f8d2c4e918503f13c'));
 
 app.get('/', function(req, res) {
     res.send('Hello World!');
@@ -82,7 +88,7 @@ app.get('/getBasementDryTempHistory', function(req, res) {
 app.post('/events', jsonParser, function(req, res) {
     events.insert(req.body);
 
-    processEvent(req.body);
+    // processEvent(req.body);
     res.send('OK');
 });
 
@@ -168,12 +174,8 @@ function updateDeviceStatusInFirebase(deviceId, key, value) {
 function _handleApiResponse(res, successStatus) {
     return function(err, payload) {
         if (err) {
-            console.error(err);
-            // res.status(err.code).send(err.message);
+            rollbar.handleError(err);
             return;
-        }
-        if (successStatus) {
-            // res.status(successStatus);
         }
         res.json(payload);
     };
