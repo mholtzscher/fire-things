@@ -1,6 +1,4 @@
 'use strict';
-
-// var projectId = process.env.GCLOUD_PROJECT || process.env.DATASET_ID;
 var projectId = 'fire-things';
 
 if (!projectId) {
@@ -55,11 +53,10 @@ function saveEvent(key, data, callback) {
 }
 
 function queryContactHistory(deviceId, startTime, callback) {
-    var date = new Date('2016-07-9 (13:38:42.000) CDT');
     var query = datastore.createQuery('Event')
         .filter('deviceId', '=', deviceId)
         .filter('name', '=', "contact")
-        .filter('date', '>=', date)
+        .filter('date', '>=', startTime)
         .order('date', {
             ascending: true
         });
@@ -74,11 +71,10 @@ function queryContactHistory(deviceId, startTime, callback) {
 }
 
 function queryDeviceTempHistory(deviceId, startTime, callback) {
-    var date = new Date('2016-07-9 (13:38:42.000) CDT');
     var query = datastore.createQuery('Event')
         .filter('deviceId', '=', deviceId)
         .filter('name', '=', "temperature")
-        .filter('date', '>=', date);
+        .filter('date', '>=', startTime);
 
     datastore.runQuery(query, function(err, events) {
         if (!err) {
@@ -97,8 +93,8 @@ function queryDeviceTempHistory(deviceId, startTime, callback) {
                 "type": "number"
             });
 
+            // Build Rows of data
             data['rows'] = [];
-
             for (var i = 0; i < events.length; i++) {
                 var date = new Date(events[i]['data'].date);
                 var dateRow = {

@@ -61,6 +61,24 @@ app.get('/getFrontDoorTempHistory', function(req, res) {
     events.queryDeviceTempHistory("d0c2a576-73c4-42af-a7f1-00ec9569c797", startTime, _handleApiResponse(res));
 });
 
+app.get('/getKitchenDoorTempHistory', function(req, res) {
+    var today = new Date();
+    var startTime = new Date(today.getTime() - 604800000);
+    events.queryDeviceTempHistory("24d0d732-a275-479c-b622-b36640154f4d", startTime, _handleApiResponse(res));
+});
+
+app.get('/getGarageEntryDoorTempHistory', function(req, res) {
+    var today = new Date();
+    var startTime = new Date(today.getTime() - 604800000);
+    events.queryDeviceTempHistory("711d7aeb-00fa-49b4-842a-0c428ae8f07b", startTime, _handleApiResponse(res));
+});
+
+app.get('/getBasementDryTempHistory', function(req, res) {
+    var today = new Date();
+    var startTime = new Date(today.getTime() - 604800000);
+    events.queryDeviceTempHistory("e078dedc-9fd8-4a68-9748-f368da3083db", startTime, _handleApiResponse(res));
+});
+
 app.post('/events', jsonParser, function(req, res) {
     events.insert(req.body);
 
