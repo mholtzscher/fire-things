@@ -106,6 +106,12 @@ app.get('/getBasementDryTempHistory', function(req, res) {
     events.queryDeviceTempHistory("e078dedc-9fd8-4a68-9748-f368da3083db", startTime, _handleApiResponse(res));
 });
 
+app.get('/getFrontDoorContactHistory', function(req, res) {
+    var today = new Date();
+    var startTime = new Date(today.getTime() - 604800000);
+    events.queryContactHistory("d0c2a576-73c4-42af-a7f1-00ec9569c797", startTime, _handleApiResponse(res));
+});
+
 app.post('/events', jsonParser, function(req, res) {
     events.insert(req.body);
 

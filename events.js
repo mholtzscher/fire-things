@@ -63,7 +63,44 @@ function queryContactHistory(deviceId, startTime, callback) {
         });
 
     datastore.runQuery(query, function(err, events) {
-        callback(err, events);
+        if (!err) {
+            var data = {};
+            data['cols'] = [];
+            data['cols'].push({
+                "id": "",
+                "label": "Date",
+                "pattern": "",
+                "type": "datetime"
+            });
+            data['cols'].push({
+                "id": "",
+                "label": "Status",
+                "pattern": "",
+                "type": "string"
+            });
+
+            // Build Rows of data
+            data['rows'] = [];
+            for (var i = 0; i < events.length; i++) {
+                var date = new Date(events[i]['data'].date);
+                var dateRow = {
+                    "v": "Date(" + date.getTime() + ")",
+                    "f": null
+                };
+                var tempRow = {
+                    "v": events[i]['data'].value,
+                    "f": null
+                };
+                var fullRow = {};
+                fullRow.c = [];
+                fullRow.c.push(dateRow);
+                fullRow.c.push(tempRow);
+                data['rows'].push(fullRow);
+            }
+            callback(null, data);
+        } else {
+            callback(err, null);
+        }
     });
 }
 
