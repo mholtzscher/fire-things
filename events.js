@@ -1,23 +1,21 @@
 'use strict';
-var projectId = 'fire-things';
+var projectId = process.env.GOOGLE_PROJECT_ID;
+projectId = 'fire-things';
 
 if (!projectId) {
-    var MISSING_ID = [
-        'Cannot find your project ID. Please set an environment variable named ',
-        '"DATASET_ID", holding the ID of your project.'
+    var MISSING_GOOGLE_PROJECT_ID = [
+        'Cannot find your project ID for Google Cloud project. Please set an environment variable named ',
+        '"GOOGLE_PROJECT_ID", holding the ID of your project.'
     ].join('');
-    throw new Error(MISSING_ID);
+    throw new Error(MISSING_GOOGLE_PROJECT_ID);
 }
 
 var gcloud = require('gcloud')({
     projectId: projectId,
-    credentials: require('./fire-things-156788df1e34.json')
+    credentials: require('./credentials.json')
 });
 
 var datastore = gcloud.datastore();
-
-var rollbar = require("rollbar");
-rollbar.init("e7c60f92667b4b6f8d2c4e918503f13c");
 
 function saveEvent(key, data, callback) {
     // fix event id
@@ -47,107 +45,8 @@ function saveEvent(key, data, callback) {
         data: data
     }, function(err) {
         if (err) {
-            rollbar.handleError(err);
+            console.log(err);
             return;
-        }
-    });
-}
-
-function queryContactHistory(deviceId, startTime, callback) {
-    var query = datastore.createQuery('Event')
-        .filter('deviceId', '=', deviceId)
-        .filter('name', '=', "contact")
-        .filter('date', '>=', startTime)
-        .order('date', {
-            ascending: true
-        });
-
-    datastore.runQuery(query, function(err, events) {
-        if (!err) {
-            var data = {};
-            data['cols'] = [];
-            data['cols'].push({
-                "id": "",
-                "label": "Date",
-                "pattern": "",
-                "type": "datetime"
-            });
-            data['cols'].push({
-                "id": "",
-                "label": "Status",
-                "pattern": "",
-                "type": "string"
-            });
-
-            // Build Rows of data
-            data['rows'] = [];
-            for (var i = 0; i < events.length; i++) {
-                var date = new Date(events[i]['data'].date);
-                var dateRow = {
-                    "v": "Date(" + date.getTime() + ")",
-                    "f": null
-                };
-                var tempRow = {
-                    "v": events[i]['data'].value,
-                    "f": null
-                };
-                var fullRow = {};
-                fullRow.c = [];
-                fullRow.c.push(dateRow);
-                fullRow.c.push(tempRow);
-                data['rows'].push(fullRow);
-            }
-            callback(null, data);
-        } else {
-            callback(err, null);
-        }
-    });
-}
-
-function queryDeviceTempHistory(deviceId, startTime, callback) {
-    var query = datastore.createQuery('Event')
-        .filter('deviceId', '=', deviceId)
-        .filter('name', '=', "temperature")
-        .filter('date', '>=', startTime);
-
-    datastore.runQuery(query, function(err, events) {
-        if (!err) {
-            var data = {};
-            data['cols'] = [];
-            data['cols'].push({
-                "id": "",
-                "label": "Date",
-                "pattern": "",
-                "type": "datetime"
-            });
-            data['cols'].push({
-                "id": "",
-                "label": "Temperature",
-                "pattern": "",
-                "type": "number"
-            });
-
-            // Build Rows of data
-            data['rows'] = [];
-            for (var i = 0; i < events.length; i++) {
-                var date = new Date(events[i]['data'].date);
-                var dateRow = {
-                    "v": "Date(" + date.getTime() + ")",
-                    "f": null
-                };
-                var tempRow = {
-                    "v": events[i]['data'].value,
-                    "f": null
-                };
-                var fullRow = {};
-                fullRow.c = [];
-                fullRow.c.push(dateRow);
-                fullRow.c.push(tempRow);
-                data['rows'].push(fullRow);
-            }
-            callback(null, data);
-        } else {
-            callback(err, null);
         }
     });
 }
@@ -156,15 +55,6 @@ module.exports = {
 
     insert: function(data) {
         var key = datastore.key('Event');
-
         saveEvent(key, data);
-    },
-
-    queryContactHistory: function(deviceId, startTime, callback) {
-        queryContactHistory(deviceId, startTime, callback);
-    },
-
-    queryDeviceTempHistory: function(deviceId, startTime, callback) {
-        queryDeviceTempHistory(deviceId, startTime, callback);
     }
 };
