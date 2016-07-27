@@ -11,12 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
-    "config": "^1.21.0",
     "express": "^4.14.0",
-    "firebase": "^3.1.0",
-    "gcloud": "^0.36.0",
-    "keen-js": "^3.4.1",
-    "response-time": "^2.3.1",
-    "rollbar": "^0.6.2"
+    "gcloud": "^0.36.0"
   }
 }
