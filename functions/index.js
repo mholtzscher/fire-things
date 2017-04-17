@@ -13,12 +13,28 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
 });
 
 exports.addEvent = functions.https.onRequest((request, response) => {
-     if (!request.get(api_key_http_header) || request.get(api_key_http_header) !== api_key) {
+    if (!request.get(api_key_http_header) || request.get(api_key_http_header) !== api_key) {
         response.sendStatus(403);
         return;
     }
 
     // process event here
+    var deviceId = request.body.deviceId;
+    var displayName = request.body.displayName;
+    var updateTime = request.body.isoDate;
+    var value = request.body.value;
+    var name = request.body.name
 
-    response.send('OK');
+    admin.database().ref('devices/' + deviceId).set({
+        device: displayName,
+        updateTime: updateTime
+    });
+
+    admin.database().ref('devices/' + deviceId + "/values/"+ name).set({
+        value: value,
+        updateTime: updateTime
+    }).then(snapshot => {
+        response.redirect('OK');
+    });
+
 });
