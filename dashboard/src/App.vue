@@ -1,18 +1,27 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+    <div v-for="device in devices">
+      <device :dev=device></device>
+    </div>
+
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import Device from './components/Device'
+import db from './db.js'
+
+let deviceRef = db.ref('devices')
 
 export default {
   name: 'app',
   components: {
-    Hello
+    Device  
+  },
+  firebase: {
+    devices: deviceRef
   }
+  
 }
 </script>
 
