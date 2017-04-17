@@ -25,12 +25,12 @@ exports.addEvent = functions.https.onRequest((request, response) => {
     var value = request.body.value;
     var name = request.body.name
 
-    admin.database().ref('devices/' + deviceId).set({
+    admin.database().ref('devices/' + deviceId).update({
         device: displayName,
         updateTime: updateTime
     });
 
-    admin.database().ref('devices/' + deviceId + "/values/"+ name).set({
+    admin.database().ref('devices/' + deviceId + "/values/"+ name).update({
         value: value,
         updateTime: updateTime
     }).then(snapshot => {
