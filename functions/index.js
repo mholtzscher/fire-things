@@ -31,6 +31,7 @@ exports.addEvent = functions.https.onRequest((request, response) => {
     });
 
     admin.database().ref('devices/' + deviceId + "/values/"+ name).update({
+        name: name,
         value: value,
         updateTime: updateTime
     }).then(snapshot => {
