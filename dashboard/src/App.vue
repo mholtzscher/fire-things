@@ -3,8 +3,9 @@
     <div id="app" class="card-columns">
       <light :values=switches :levels=levels :devices=devices></light>
       <temperature :values=temps :devices=devices></temperature>
-      <contact :values=contacts></contact>
+      <contact :values=contacts :devices=devices></contact>
       <presence :values=residents></presence>
+      <moisture :values=moisture :devices=devices></moisture>
     </div>
   </div>
 </template>
@@ -14,6 +15,7 @@ import Light from './components/Light'
 import Temperature from './components/Temperature'
 import Contact from './components/Contact'
 import Presence from './components/Presence'
+import Moisture from './components/Moisture'
 import db from './db.js'
 
 let deviceRef = db.ref('devices')
@@ -22,6 +24,7 @@ let switchLevelRef = db.ref('level')
 let tempRef = db.ref('temperature')
 let contactRef = db.ref('contact')
 let presenceRef = db.ref('presence')
+let moistureRef = db.ref('water')
 
 export default {
   name: 'app',
@@ -29,7 +32,8 @@ export default {
     Light,
     Temperature,
     Contact,
-    Presence  
+    Presence,
+    Moisture  
   },
   firebase: {
     devices: deviceRef,
@@ -37,7 +41,8 @@ export default {
     levels: switchLevelRef,
     temps: tempRef,
     contacts: contactRef,
-    residents: presenceRef
+    residents: presenceRef,
+    moisture: moistureRef
   }
   
 }
