@@ -6,9 +6,7 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li v-for="value in values" class="list-group-item">
-                    <p v-bind:class="[value === 'open' ? 'bg-danger text-white' : 'bg-success text-white']">
-                         {{ getDeviceDisplay(value['.key']) }} is {{ value['.value'] }}
-                    </p>
+                   {{ getDeviceDisplay(value['.key']) }} is {{ value['.value'] }}
                 </li>
             </ul>
         </div>
@@ -18,7 +16,7 @@
 <script>
 export default {
     name: "contact",
-    props: ['values'],
+    props: ['values', 'devices'],
      methods: {
         getDeviceDisplay: function (deviceId){
             var name = ''

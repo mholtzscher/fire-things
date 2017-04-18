@@ -4,7 +4,7 @@
       <light :values=switches :levels=levels :devices=devices></light>
       <temperature :values=temps :devices=devices></temperature>
       <contact :values=contacts :devices=devices></contact>
-      <presence :values=residents></presence>
+      <presence :values=residents :devices=devices></presence>
       <moisture :values=moisture :devices=devices></moisture>
     </div>
   </div>

@@ -17,7 +17,7 @@
 <script>
 export default {
     name: "presence",
-    props: ['values'],
+    props: ['values', 'devices'],
      methods: {
         getDeviceDisplay: function (deviceId){
             var name = ''
