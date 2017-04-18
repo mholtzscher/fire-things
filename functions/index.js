@@ -18,17 +18,14 @@ exports.addEvent = functions.https.onRequest((request, response) => {
     var value = request.body.value;
     var name = request.body.name
 
+    // push device info
     admin.database().ref('devices/' + deviceId).update({
         device: displayName,
         updateTime: updateTime
     });
 
-    admin.database().ref('devices/' + deviceId + "/values/"+ name).update({
-        name: name,
-        value: value,
-        updateTime: updateTime
-    }).then(snapshot => {
-        response.redirect('OK');
-    });
-
+    // add event update
+    var data = {};
+    data[deviceId] = value;
+    admin.database().ref(name).set(data);
 });
