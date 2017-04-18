@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p>Contact Sensor: {{value}}</p>
+        <p v-bind:class="[value === 'open' ? 'bg-danger text-white' : 'bg-success text-white']">Contact Sensor: {{value}}</p>
     </div>
 </template>
 

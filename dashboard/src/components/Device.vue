@@ -1,11 +1,15 @@
 <template>
-    <div>
-        <h5>{{dev.device}}</h5>
-        <ul>
-            <div v-for="value in dev.values">
-                <value :value=value></value>
+    <div class="card">
+        <div clas="card-block"
+            <div class="card-header">
+                {{dev.device}}
             </div>
-        </ul>
+            <ul class="list-group list-group-flush">
+                <li v-for="value in dev.values" class="list-group-item">
+                    <value :value=value></value>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
