@@ -28,4 +28,6 @@ exports.addEvent = functions.https.onRequest((request, response) => {
     var data = {};
     data[deviceId] = value;
     admin.database().ref(name).update(data);
+
+    response.send('OK');
 });
