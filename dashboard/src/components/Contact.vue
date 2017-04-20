@@ -7,7 +7,7 @@
             <ul class="list-group list-group-flush">
                 <li v-for="value in values" class="list-group-item">
                     {{ getDeviceDisplay(value['.key']) }} is&ensp;
-                    <div class="badge" v-bind:class="[value['.value'] === 'open' ? 'badge-danger' : 'badge-success']">
+                    <div class="badge badge-pill" v-bind:class="[value['.value'] === 'open' ? 'badge-danger' : 'badge-success']">
                         {{ value['.value'] }}
                     </div>
                 </li>
