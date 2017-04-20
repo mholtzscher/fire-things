@@ -2,6 +2,7 @@
     <div class="card card-warning">
         <div clas="card-block"
             <div class="card-header text-white">
+                <img src="../../static/opened-door-aperture.png">
                 Contact Sensors
             </div>
             <ul class="list-group list-group-flush">

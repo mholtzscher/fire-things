@@ -2,12 +2,13 @@
         <div class="card card-danger">
         <div clas="card-block"
             <div class="card-header text-white">
+                <img src="../../static/ic_account_circle_black_24dp_1x.png">
                 People
             </div>
             <ul class="list-group list-group-flush">
                 <li v-for="value in values" class="list-group-item">
-                    <p v-if="value['.value'] === 'present'">{{getDeviceDisplay(value['.key'])}} Is Home</p>
-                    <p v-else>{{getDeviceDisplay(value['.key'])}} Is Away</p>
+                    <div v-if="value['.value'] === 'present'">{{getDeviceDisplay(value['.key'])}} Is Home</div>
+                    <div v-else>{{getDeviceDisplay(value['.key'])}} Is Away</div>
                 </li>
             </ul>
         </div>

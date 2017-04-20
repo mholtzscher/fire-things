@@ -2,6 +2,7 @@
     <div class="card card-success">
         <div clas="card-block"
             <div class="card-header text-white">
+                <img src="../../static/ic_ac_unit_black_24dp_1x.png">
                 Temperatures
             </div>
             <ul class="list-group list-group-flush">
