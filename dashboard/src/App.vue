@@ -6,6 +6,7 @@
       <contact :values=contacts :devices=devices></contact>
       <presence :values=residents :devices=devices></presence>
       <moisture :values=moisture :devices=devices></moisture>
+      <motion :values=motions :devices=devices></motion>
     </div>
   </div>
 </template>
@@ -16,8 +17,10 @@ import Temperature from './components/Temperature'
 import Contact from './components/Contact'
 import Presence from './components/Presence'
 import Moisture from './components/Moisture'
-import db from './db.js'
+import Motion from './components/Motion'
+import firebaseApp from './db.js'
 
+let db = firebaseApp.database()
 let deviceRef = db.ref('devices')
 let switchRef = db.ref('switch')
 let switchLevelRef = db.ref('level')
@@ -25,6 +28,7 @@ let tempRef = db.ref('temperature')
 let contactRef = db.ref('contact')
 let presenceRef = db.ref('presence')
 let moistureRef = db.ref('water')
+let motionRef = db.ref('motion')
 
 export default {
   name: 'app',
@@ -33,7 +37,8 @@ export default {
     Temperature,
     Contact,
     Presence,
-    Moisture  
+    Moisture,
+    Motion  
   },
   firebase: {
     devices: deviceRef,
@@ -42,7 +47,8 @@ export default {
     temps: tempRef,
     contacts: contactRef,
     residents: presenceRef,
-    moisture: moistureRef
+    moisture: moistureRef,
+    motions: motionRef
   }
   
 }

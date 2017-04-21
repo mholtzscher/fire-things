@@ -3,10 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import VueFire from 'vuefire'
+import Firebase from 'firebase'
 
 Vue.use(VueFire)
 
 Vue.config.productionTip = false
+
+let google = new Firebase.auth.GoogleAuthProvider();
 
 /* eslint-disable no-new */
 new Vue({
